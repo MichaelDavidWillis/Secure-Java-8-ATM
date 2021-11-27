@@ -41,62 +41,57 @@ class Keypad {
 	public final JButton BEnter = new JButton("Enter");
 	BCheck BC = new BCheck();
 	BClear BC1 = new BClear();
+	
+	final JButton[] allButtons = {B1, B2, B3, B4, B5, B6, B7, B8, B9, BClear, B0, BEnter};
 
-	JPanel addkeypad() {
+	JPanel addKeypad() {
 		JPanel panel = new JPanel();
 		panel.setSize(160, 160);
 		panel.setLocation(50, 190);
 		panel.setBackground(Color.gray);
 		panel.setLayout(new FlowLayout());
-		panel.add(B1);
-		panel.add(B2);
-		panel.add(B3);
-		panel.add(B4);
-		panel.add(B5);
-		panel.add(B6);
-		panel.add(B7);
-		panel.add(B8);
-		panel.add(B9);
-		panel.add(BClear);
-		panel.add(B0);
-		panel.add(BEnter);
+		for (JButton button : allButtons) {
+			panel.add(button);
+		}
 
 		return panel;
 	}
 		
-	void addkeypadlisteners() {
-		this.B1.addActionListener(BC);
-		this.B2.addActionListener(BC);
-		this.B3.addActionListener(BC);
-		this.B4.addActionListener(BC);
-		this.B5.addActionListener(BC);
-		this.B6.addActionListener(BC);
-		this.B7.addActionListener(BC);
-		this.B8.addActionListener(BC);
-		this.B9.addActionListener(BC);
-		this.B0.addActionListener(BC);
-		this.BClear.addActionListener(BC1);
+	void addKeypadListeners() {
+		for (JButton button : allButtons) {
+			
+			if 		(button == this.BClear) button.addActionListener(BC1);
+			else if (button == this.BEnter) continue;
+			else							button.addActionListener(BC);
+		}
 	}
 	
-	void clearkeypadlisteners() {
-		this.B1.removeActionListener(BC);
-		this.B2.removeActionListener(BC);
-		this.B3.removeActionListener(BC);
-		this.B4.removeActionListener(BC);
-		this.B5.removeActionListener(BC);
-		this.B6.removeActionListener(BC);
-		this.B7.removeActionListener(BC);
-		this.B8.removeActionListener(BC);
-		this.B9.removeActionListener(BC);
-		this.B0.removeActionListener(BC);
-		this.BClear.removeActionListener(BC1);
+	void clearKeypadListeners() {
+		for (JButton button : allButtons) {
+			
+			if 		(button == this.BClear) button.removeActionListener(BC1);
+			else if (button == this.BEnter) continue;
+			else							button.removeActionListener(BC);
+		}
+	}
+	
+	private void removeActionListeners(JButton button) {
+		for (ActionListener al : button.getActionListeners()) {
+			button.removeActionListener(al);
+		}
+	}
+	
+	void removeActionListenersFromAll() {
+		for (JButton button : allButtons) {
+			removeActionListeners(button);
+		}
 	}
 
 	String userinput() {
 		return userinput;
 	}
 
-	void resetuserinput() {
+	void resetUserinput() {
 		userinput = "";
 	}
 	

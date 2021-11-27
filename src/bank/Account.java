@@ -65,7 +65,8 @@ final class Account {
 		if (isWithdrawal) {
 			this.availableBalance = Double.toString(newBalance);
 		} else {
-			this.unavailableBalance = Double.toString(newBalance);
+			this.unavailableBalance = Double.toString
+					(newBalance - Double.parseDouble(this.availableBalance));
 		}
 	}
 }

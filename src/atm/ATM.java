@@ -29,6 +29,13 @@ import javax.swing.WindowConstants;
 import bank.Authenticator;
 import user.CreditCard;
 
+/**
+* {@code ATM} class represents the ATM and handles operations between all other objects.
+*
+* @version 0.2
+* @author Michael David Willis
+*/
+
 public class ATM extends JFrame {
 	private Screen screen = new Screen();
 	private Keypad keypad = new Keypad();
@@ -47,7 +54,7 @@ public class ATM extends JFrame {
 		screen.welcomeScreen();
 		
 		atm.add(screen);
-		atm.add(keypad.addkeypad());
+		atm.add(keypad.addKeypad());
 		atm.add(cardReader.createCardReader());
 		atm.add(dispenser);
 		
@@ -72,14 +79,15 @@ public class ATM extends JFrame {
 	private void cardEntered() {
 		if (cardReader.cardEntered(new CreditCard("Customer 1", 12_345_679, 12345))) {
 			screen.loginScreen();
-			keypad.addkeypadlisteners();
+			keypad.addKeypadListeners();
 			keypad.BEnter.addActionListener(new ActionListener() {
 
+		// set actions for when PIN number is input and the "Enter" button pressed.
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
 					System.out.println("Authenticating User...");
-					keypad.clearkeypadlisteners();
+					keypad.clearKeypadListeners();
 					
 					if(authenticate.authenticateUser(
 							cardReader.card.accountNumber, 
@@ -88,17 +96,17 @@ public class ATM extends JFrame {
 						screen.userScreen(
 								authenticate.getAvailableBalance(), 
 								authenticate.getTotalBalance());
-						removeActionListener(keypad.BEnter);
+						removeActionListeners(keypad.BEnter);
 						addTransactionKeypad();
 					} else {
 						System.out.println("User Not Authenticated...");
-						if (cardReader.cardIn) returnCard();
+						returnCard();
 					}							
 				}
 			});
 		} else {
 			System.out.println("Card Not Authenticated...");
-			if (cardReader.cardIn) returnCard();
+			returnCard();
 		}							
 	}
 	
@@ -107,14 +115,14 @@ public class ATM extends JFrame {
 							Integer.parseInt(Screen.Inputfield.getText()))
 				&& authenticate.authenticateTransaction(type)) {
 			if (type) {
-				removeActionListener(keypad.B1);
-				removeActionListener(keypad.B3);
+				removeActionListeners(keypad.B1);
+				removeActionListeners(keypad.B3);
 				screen.withdrawalScreen();
 				addWithdrawalKeypad();
 				
 			} else {
-				removeActionListener(keypad.B1);
-				removeActionListener(keypad.B3);
+				removeActionListeners(keypad.B1);
+				removeActionListeners(keypad.B3);
 				screen.depositScreen();
 				
 			}
@@ -122,29 +130,19 @@ public class ATM extends JFrame {
 	}
 	
 	private void returnCard() {
-		authenticate.clear();
-		cardReader.cardReturned();
-		keypad.resetuserinput();
-		Screen.Inputfield.setText("");
-		screen.welcomeScreen();
-		removeActionListener(keypad.B1);
-		removeActionListener(keypad.B2);
-		removeActionListener(keypad.B3);
-		removeActionListener(keypad.B4);
-		removeActionListener(keypad.B5);
-		removeActionListener(keypad.B6);
-		removeActionListener(keypad.B7);
-		removeActionListener(keypad.B8);
-		removeActionListener(keypad.B9);
-		removeActionListener(keypad.B0);
-		removeActionListener(keypad.BEnter);
-		removeActionListener(keypad.BClear);
-		dispenser.setBackground(Color.black);
-
-		System.out.println("Card returned.");
+		if (cardReader.cardIn) {	
+			authenticate.clear();
+			cardReader.cardReturned();
+			keypad.resetUserinput();
+			Screen.Inputfield.setText("");
+			screen.welcomeScreen();
+			keypad.removeActionListenersFromAll();
+	
+			System.out.println("Card returned.");
+		}
 	}
 	
-	private void removeActionListener(JButton button) {
+	private void removeActionListeners(JButton button) {
 		for (ActionListener al : button.getActionListeners()) {
 			button.removeActionListener(al);
 		}
@@ -183,10 +181,10 @@ public class ATM extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 20)) {
-					dispenser.dispenseMoney(20);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(20, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+					returnCard();
 				}
 			}
 		});
@@ -195,22 +193,21 @@ public class ATM extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 40)) {
-					dispenser.dispenseMoney(40);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(40, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+					returnCard();
 				}
 			}
 		});
 		keypad.B4.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 60)) {
-					dispenser.dispenseMoney(60);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(60, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+					returnCard();
 				}
 			}
 		});
@@ -219,10 +216,10 @@ public class ATM extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 80)) {
-					dispenser.dispenseMoney(80);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(80, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+					returnCard();
 				}
 			}
 		});
@@ -231,10 +228,10 @@ public class ATM extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 100)) {
-					dispenser.dispenseMoney(100);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(100, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+	  				returnCard();
 				}
 			}
 		});
@@ -243,10 +240,10 @@ public class ATM extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (authenticate.finalizeTransaction(true, 200)) {
-					dispenser.dispenseMoney(200);
-					if (cardReader.cardIn) returnCard();
+					dispenser.dispenseMoney(200, authenticate, screen);
+					screen.takeMoneyScreen();
 				} else {
-					if (cardReader.cardIn) returnCard();
+					returnCard();
 				}
 			}
 		});
@@ -261,7 +258,7 @@ public class ATM extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (cardReader.cardIn) returnCard();
+				returnCard();
 				screen.welcomeScreen();
 			}
 		});
@@ -280,7 +277,7 @@ public class ATM extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (cardReader.cardIn) returnCard();
+				returnCard();
 				screen.welcomeScreen();
 			}
 		});

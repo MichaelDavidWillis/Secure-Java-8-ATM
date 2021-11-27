@@ -18,13 +18,29 @@
 package atm;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import bank.Authenticator;
+
+/**
+* {@code Dispenser} class represents the cash dispenser of the ATM 
+*
+* @version 0.2
+* @author Michael David Willis
+*/
 
 class Dispenser extends JPanel {
 
 	int DepositSlots;
 	int cashStored;
+	
+	// Constructor
 	
 	Dispenser() {
 		DepositSlots = 10;
@@ -34,9 +50,47 @@ class Dispenser extends JPanel {
 		setBackground(Color.black);
 	}
 	
-	void dispenseMoney(int amount) {
+	// Methods
+	
+	void dispenseMoney(int amount, Authenticator authenticate, Screen screen) {
+		
 		setBackground(Color.red);
-		System.out.println("£" + amount + " dispensed...");
+		
+		Timer timeToTakeCash = new Timer(10000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setBackground(Color.black);
+				System.out.println("Unsuccessful dispensation...");
+				authenticate.authenticateTransaction(false);
+				authenticate.finalizeTransaction(false, amount);
+				System.out.println("£" + amount + " returned to account...");
+				screen.userScreen(
+						authenticate.getAvailableBalance(),
+						authenticate.getTotalBalance());
+			}
+		});
+		
+		timeToTakeCash.setRepeats(false);
+		timeToTakeCash.start();
+		
+		this.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				timeToTakeCash.stop();
+				setBackground(Color.black);
+				System.out.println("Cash taken");
+				System.out.println("£" + amount + " dispensed...");
+				cashStored -= amount;
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
 	}
 	
 	void collectMoney() {

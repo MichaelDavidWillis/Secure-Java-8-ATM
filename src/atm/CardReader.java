@@ -24,6 +24,14 @@ import javax.swing.JPanel;
 
 import user.CreditCard;
 
+/**
+* {@code CardReader} class represents the credit card reader of the ATM and verifies
+*  the card before any ATM actions are made.
+*
+* @version 0.2
+* @author Michael David Willis
+*/
+
 class CardReader {
 
 	JPanel reader = new JPanel();

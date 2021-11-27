@@ -33,7 +33,9 @@ final class TransactionFactory {
 
 		@Override
 		boolean calculate() {
+			System.out.print(availableOrTotal + " + " + amount);
 			amountEnd = availableOrTotal + amount;
+			System.out.println(" = " + amountEnd);
 			return true;
 		}
 	}

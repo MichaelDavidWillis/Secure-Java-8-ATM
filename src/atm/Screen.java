@@ -200,4 +200,12 @@ class Screen extends JPanel{
 		LabelOne.setVisible(true);
 		top.add(LabelOne);
 	}
+	
+	void takeMoneyScreen() {
+		clearScreen();
+		
+		LabelTwo.setText("Please take your money promptly");
+		LabelTwo.setVisible(true);
+		top.add(LabelTwo);
+	}
 }

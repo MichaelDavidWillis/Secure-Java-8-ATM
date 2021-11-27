@@ -57,19 +57,20 @@ public final class Authenticator {
 			if (transaction.calculate()) {
 				try {
 					System.out.println("Transaction in progress...");
-					account.changeBalance(transaction.amountEnd, true);
+					account.changeBalance(transaction.amountEnd, isWithdrawal);
 				} catch (Exception e) {
 					System.out.println("Cancelling transaction...");
 					cancelTransaction();
 					return false;
 				}
+				System.out.println("£" + amount + " " 
+									   + ((isWithdrawal) ? "withdrawn" : "deposited"));
 				System.out.println("Transaction complete...");
-				account = null;
 				transaction = null;
 				return true;
 			} else {
 				// TODO : insufficient funds screen
-				System.out.println("Cancelling transaction...");
+				System.out.println("Insufficient funds...");
 				cancelTransaction();
 				return false;
 			}
@@ -82,7 +83,6 @@ public final class Authenticator {
 	
 	void cancelTransaction() {
 		System.out.println("Transaction cancelled...");
-		this.account = null;
 		this.transaction = null;
 	}
 	
@@ -110,6 +110,9 @@ public final class Authenticator {
 	}
 
 	public void clear() {
-		if (account != null || transaction != null) cancelTransaction();
+		if (account != null || transaction != null) {
+			account = null;
+			transaction = null;
+		}
 	}
 }
