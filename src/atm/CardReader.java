@@ -28,7 +28,7 @@ import user.CreditCard;
 * {@code CardReader} class represents the credit card reader of the ATM and verifies
 *  the card before any ATM actions are made.
 *
-* @version 0.2
+* @version 0.3
 * @author Michael David Willis
 */
 
@@ -54,14 +54,10 @@ class CardReader {
 	
 	boolean cardEntered(CreditCard card) {
 		cardIn = true;
-		
 		System.out.println("Checking card...");
-		
 		if(card.verifyBankCode() == bankCode) {
 			this.card = card;
-			
 			System.out.println("Card verified...");
-			
 			return true;
 		}
 		cardReturned();

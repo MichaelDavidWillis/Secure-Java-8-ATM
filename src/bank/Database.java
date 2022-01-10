@@ -20,6 +20,13 @@ package bank;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* {@code Database} class represents a database of {@code Account}'s.
+*
+* @version 0.3
+* @author Michael David Willis
+*/
+
 final class Database {
 	List<Account> database = new ArrayList<>();
 	

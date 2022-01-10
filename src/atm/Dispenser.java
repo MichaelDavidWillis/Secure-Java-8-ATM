@@ -26,12 +26,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import bank.Authenticator;
-
 /**
 * {@code Dispenser} class represents the cash dispenser of the ATM 
 *
-* @version 0.2
+* @version 0.3
 * @author Michael David Willis
 */
 
@@ -52,21 +50,15 @@ class Dispenser extends JPanel {
 	
 	// Methods
 	
-	void dispenseMoney(int amount, Authenticator authenticate, Screen screen) {
-		
+	void dispenseMoney(ATM atm, int amount, Screen screen) {
 		setBackground(Color.red);
 		
-		Timer timeToTakeCash = new Timer(10000, new ActionListener() {
+		Timer timeToTakeCash = new Timer(10_000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setBackground(Color.black);
-				System.out.println("Unsuccessful dispensation...");
-				authenticate.authenticateTransaction(false);
-				authenticate.finalizeTransaction(false, amount);
-				System.out.println("£" + amount + " returned to account...");
-				screen.userScreen(
-						authenticate.getAvailableBalance(),
-						authenticate.getTotalBalance());
+				cashStored -= amount;
+				atm.moneyNotTaken(amount);
 			}
 		});
 		
@@ -81,6 +73,7 @@ class Dispenser extends JPanel {
 				System.out.println("Cash taken");
 				System.out.println("£" + amount + " dispensed...");
 				cashStored -= amount;
+				removeMouseListener(this);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {}

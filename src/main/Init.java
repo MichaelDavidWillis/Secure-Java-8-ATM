@@ -18,12 +18,18 @@
 package main;
 
 import atm.ATM;
+import bank.Bank;
 
 public class Init {
 
-	public static void main(String[] args) {
-		ATM atm = new ATM();
 
+	public static Bank bankA = new Bank("Bank of A", 1234);
+	public static Bank bankB = new Bank("Bank of B", 5678);
+	
+	public static void main(String[] args) {
+
+		ATM atm = new ATM();
+		
 	}
 
 }

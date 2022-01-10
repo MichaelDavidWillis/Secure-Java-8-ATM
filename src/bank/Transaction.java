@@ -17,7 +17,15 @@
 
 package bank;
 
-abstract class Transactions {
+/**
+* {@code Transactions} class is an abstract class that represents the
+* essential parts of a transaction.
+*
+* @version 0.3
+* @author Michael David Willis
+*/
+
+abstract class Transaction {
 
 	double availableOrTotal;
 	double amountEnd;

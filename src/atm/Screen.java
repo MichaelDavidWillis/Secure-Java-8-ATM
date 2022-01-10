@@ -17,22 +17,30 @@
 
 package atm;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import common.ReadOnlyAccount;
+
+/**
+* {@code Screen} class represents the ATM screen.
+*
+* @version 0.3
+* @author Michael David Willis
+*/
+
 class Screen extends JPanel{	
 
 	static JLabel LabelOne = new JLabel();
 	static JLabel LabelTwo = new JLabel();
+	static JLabel LabelThree = new JLabel();
 	JLabel withdrawLabel = new JLabel();
 	JLabel depositLabel = new JLabel();
 	JLabel cancelLabel = new JLabel();
@@ -124,13 +132,17 @@ class Screen extends JPanel{
 		bottom.add(Inputfield);
 	}
 	
-	void userScreen(double available, double total) {
+	void userScreen(ReadOnlyAccount account) {
 		clearScreen();
-		LabelOne.setText("Total Balance : " + total);
-		LabelTwo.setText("Available Balance : " + available);
+		LabelOne.setText("Welcome " + account.getName());
+		LabelTwo.setText("Total Balance : " + account.getTotalBalance());
+		LabelThree.setText("Available Balance : " + account.getAvailableBalance());
+		LabelThree.setAlignmentX(Component.CENTER_ALIGNMENT);		
+		LabelThree.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		
 		LabelOne.setVisible(true);
 		LabelTwo.setVisible(true);
+		LabelThree.setVisible(true);
 		
 		withdrawLabel.setText("1 - Withdrawal");
 		withdrawLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
@@ -149,6 +161,7 @@ class Screen extends JPanel{
 		
 		top.add(LabelOne);
 		top.add(LabelTwo);
+		top.add(LabelThree);
 		
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.PAGE_AXIS));
 		bottom.add(withdrawLabel);

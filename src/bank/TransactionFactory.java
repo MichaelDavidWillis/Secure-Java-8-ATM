@@ -17,9 +17,17 @@
 
 package bank;
 
+/**
+* {@code TransactionFactory} class contains a factory method for
+* creating and returning a specific {@code Transaction} object.
+*
+* @version 0.2
+* @author Michael David Willis
+*/
+
 final class TransactionFactory {
 
-	Transactions createTransaction(boolean isWithdrawal) {
+	Transaction createTransaction(boolean isWithdrawal) {
 		if (isWithdrawal) {
 			System.out.println("Withdrawal in progress...");
 			return new Withdrawal();
@@ -29,8 +37,10 @@ final class TransactionFactory {
 		}
 	}
 	
-	private final class Deposit extends Transactions {
+	private final class Deposit extends Transaction {
 
+		
+		
 		@Override
 		boolean calculate() {
 			System.out.print(availableOrTotal + " + " + amount);
@@ -40,7 +50,7 @@ final class TransactionFactory {
 		}
 	}
 	
-	private final class Withdrawal extends Transactions {
+	private final class Withdrawal extends Transaction {
 
 		@Override
 		boolean calculate() {
@@ -48,10 +58,9 @@ final class TransactionFactory {
 				System.out.println("Sufficient Funds...");
 				amountEnd = availableOrTotal - amount;
 				return true;
-			} else {
-				System.out.println("Insufficient Funds...");
-				return false;
 			}
+			System.out.println("Insufficient Funds...");
+			return false;
 		}
 		
 		private boolean sufficientFunds() {

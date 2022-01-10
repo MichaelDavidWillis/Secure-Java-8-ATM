@@ -17,9 +17,16 @@
 
 package bank;
 
+/**
+* {@code Account} class represents a {@code Bank} account.
+*
+* @version 0.3
+* @author Michael David Willis
+*/
+
 final class Account {
 	private String name;
-	private String accountNumber;
+	private final String accountNumber;
 	private String pin;
 	private String availableBalance;
 	private String unavailableBalance;
@@ -68,5 +75,16 @@ final class Account {
 			this.unavailableBalance = Double.toString
 					(newBalance - Double.parseDouble(this.availableBalance));
 		}
+	}
+	
+	// Object Overrides
+	@Override
+	public int hashCode() {
+		return (int) (getAccountNumber() * 13 / 3 * 17);
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

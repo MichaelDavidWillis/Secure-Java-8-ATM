@@ -25,20 +25,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-class Keypad {
+/**
+* {@code Keypad} class represents the ATM keypad.
+*
+* @version 0.3
+* @author Michael David Willis
+*/
+
+class Keypad implements KeypadButtons {
 	private String userinput = "";
-	public final JButton B1 = new JButton("1");
-	public final JButton B2 = new JButton("2");
-	public final JButton B3 = new JButton("3");
-	public final JButton B4 = new JButton("4");
-	public final JButton B5 = new JButton("5");
-	public final JButton B6 = new JButton("6");
-	public final JButton B7 = new JButton("7");
-	public final JButton B8 = new JButton("8");
-	public final JButton B9 = new JButton("9");
-	public final JButton B0 = new JButton("0");
-	public final JButton BClear = new JButton("Clear");
-	public final JButton BEnter = new JButton("Enter");
 	BCheck BC = new BCheck();
 	BClear BC1 = new BClear();
 	
@@ -63,15 +58,6 @@ class Keypad {
 			if 		(button == this.BClear) button.addActionListener(BC1);
 			else if (button == this.BEnter) continue;
 			else							button.addActionListener(BC);
-		}
-	}
-	
-	void clearKeypadListeners() {
-		for (JButton button : allButtons) {
-			
-			if 		(button == this.BClear) button.removeActionListener(BC1);
-			else if (button == this.BEnter) continue;
-			else							button.removeActionListener(BC);
 		}
 	}
 	
