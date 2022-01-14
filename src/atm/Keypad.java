@@ -25,14 +25,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import common.PanelHelper;
+
 /**
 * {@code Keypad} class represents the ATM keypad.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
-class Keypad implements KeypadButtons {
+class Keypad implements KeypadButtons, PanelHelper {
 	private String userinput = "";
 	BCheck BC = new BCheck();
 	BClear BC1 = new BClear();
@@ -61,12 +63,6 @@ class Keypad implements KeypadButtons {
 		}
 	}
 	
-	private void removeActionListeners(JButton button) {
-		for (ActionListener al : button.getActionListeners()) {
-			button.removeActionListener(al);
-		}
-	}
-	
 	void removeActionListenersFromAll() {
 		for (JButton button : allButtons) {
 			removeActionListeners(button);
@@ -85,8 +81,6 @@ class Keypad implements KeypadButtons {
 		public void actionPerformed(ActionEvent e) {
 			JButton b = (JButton) e.getSource();
 			userinput += b.getText();
-			
-			System.out.println("button " + userinput);
 			
 			// update the text field using the user's input.
 			Screen.Inputfield.setText(userinput);

@@ -23,23 +23,23 @@ import javax.swing.JButton;
 * {@code KeypadButtons} interface represents the buttons that make up 
 * a keypad and is meant to be implemented by a {@code Keypad} object.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
-public interface KeypadButtons {
+interface KeypadButtons {
 
-	public final JButton B1 = new JButton("1");
-	public final JButton B2 = new JButton("2");
-	public final JButton B3 = new JButton("3");
-	public final JButton B4 = new JButton("4");
-	public final JButton B5 = new JButton("5");
-	public final JButton B6 = new JButton("6");
-	public final JButton B7 = new JButton("7");
-	public final JButton B8 = new JButton("8");
-	public final JButton B9 = new JButton("9");
-	public final JButton B0 = new JButton("0");
-	public final JButton BClear = new JButton("Clear");
-	public final JButton BEnter = new JButton("Enter");
+	JButton B1 = new JButton("1");
+	JButton B2 = new JButton("2");
+	JButton B3 = new JButton("3");
+	JButton B4 = new JButton("4");
+	JButton B5 = new JButton("5");
+	JButton B6 = new JButton("6");
+	JButton B7 = new JButton("7");
+	JButton B8 = new JButton("8");
+	JButton B9 = new JButton("9");
+	JButton B0 = new JButton("0");
+	JButton BClear = new JButton("Clear");
+	JButton BEnter = new JButton("Enter");
 	
 }

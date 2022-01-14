@@ -15,33 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
-
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import common.PanelHelper;
+package common;
 
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code NoteTen} are objects that simulate a £10 bank note.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+public class NoteTen extends Note {
+
+	public int value;
 	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
-		
-		this.setLayout(null);
-		this.setVisible(true);
-		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+	public NoteTen(Long serialNumber, int value) {
+		super(serialNumber);
+		this.value = value;
 	}
+
 }

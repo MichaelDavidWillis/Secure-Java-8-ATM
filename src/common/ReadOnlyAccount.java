@@ -22,20 +22,20 @@ package common;
 * of an {@code Account} object that can safely be return to an ATM object
 * to display it's given information to the user.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
 public final class ReadOnlyAccount {
 	private final String name;
-	private final double availableBalance;
-	private final double totalBalance;
+	private final String availableBalance;
+	private final String totalBalance;
 	private final long uniqueKey;
 	
 	public ReadOnlyAccount(String name, Double availableBalance, Double totalBalance, long uniqueKey){
 		this.name = name;
-		this.availableBalance = availableBalance;
-		this.totalBalance = totalBalance;
+		this.availableBalance = String.valueOf(availableBalance);
+		this.totalBalance = String.valueOf(totalBalance);
 		this.uniqueKey = uniqueKey;
 	}
 	
@@ -43,11 +43,11 @@ public final class ReadOnlyAccount {
 		return name;
 	}
 	
-	public final double getTotalBalance() {
+	public final String getTotalBalance() {
 		return totalBalance;
 	}
 	
-	public final double getAvailableBalance() {
+	public final String getAvailableBalance() {
 		return availableBalance;
 	}
 	

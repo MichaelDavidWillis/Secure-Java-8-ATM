@@ -1,6 +1,54 @@
-This is a work in early progress and I hope to expand much of what I have done so far.
-To access the account enter the pin 1111, I later intend to have a user wallet with 
-several cards and money for depositing.
+This is a work in progress and I hope to expand much of what I have done so far.
+This app launches 2 JFrames, one to display a simulated ATM and another to simulate
+a User's Wallet.
+Currently the Wallet only has 2 Credit Cards (Red - pin = 1111 & Blue - pin = 2222).
+Users can select which card to use and access the appropriate account.
+
+Public classes of packages :
+	atm 	- 	ATM.java
+	bank 	- 	Bank.java
+	common 	- 	all .java files
+	user 	- 	Wallet.java
+
+----------------------------------------------------------------------------------------------------
+
+I later plan to :
+	- implement a means of storing and depositing money to and from the
+		ATM and Wallet objects.
+	- More Cards with the ability to add Cards from a Bank Frame.
+	- A Bank Frame to add new accounts and create new Cards.
+	- Improve security (PIN handling, hashCodes, exception handling).
+	- All logging to be done to files stored in program folders rather than just to console.
+	- Documentation comments with proper tags of params and returns for each method.
+	- Once I am happy with the app I intend to migrate to Java 9, introducing modules, with
+		further migrations to Java 11 and Java 16 to follow.
+
+----------------------------------------------------------------------------------------------------
+
+version 0.4 - 
+	- Taken many "hard-coded" strings out of the program into .properties files, with
+		resource bundles being used to better implement language conversion later.
+	- General code clean up, in the Screen class in particular.
+	- User Wallet JFrame added to choose between cards and later store bank notes.
+	- User Wallet JFrame now handles the exiting of the program instead of the ATM Frame.
+	- CreditCard class moved to package common.
+	- Added to package atm :
+		- ATMLogger - handles all ATM logging, currently simply printing to console.
+		- ScreenBase - initiates and holds elements used by the Screen object.
+		- resources - folder to hold property files used by the ATM.
+	- Added to package common :
+		- Note - Abstract class representing a bank note.
+		- NoteTen - representing a £10 bank note.
+		- NoteTwenty - representing a £20 bank note.
+		- PanelHelper - interface with simple helper methods to handle JPanels.
+	- Added to package user :
+		- WalletFrame - similar to the ATMFrame class
+		- Wallet - represents a User's Wallet that can be interacted with to select a 
+			Card to use on an ATM.
+		- CardSelector - interface to extend MouseListener interface.
+		- CardHolder - represents 3 card slots to store Cards.
+		- CardSlot - represents a wallet card slot that can store one card. 
+		- NoteHolder - represents a wallet note holder to store bank notes.
 
 version 0.3 -
 	- major code clean up and divided the code to make it more readable and modifiable.

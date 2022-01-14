@@ -15,20 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package user;
+package common;
 
-public class CreditCard {
-	public String name;
-	public int accountNumber;
-	private int bankCode = 12345;
+/**
+* {@code NoteTwenty} are objects that simulate a £20 bank note.
+*
+* @version 0.4
+* @author Michael David Willis
+*/
+
+public class NoteTwenty extends Note {
+
+	public int value;
 	
-	public CreditCard(String name, int accountNumber, int bankCode) {
-		this.name = name;
-		this.accountNumber = accountNumber;
-		this.bankCode = bankCode;
+	public NoteTwenty(Long serialNumber, int value) {
+		super(serialNumber);
+		this.value = value;
 	}
-	
-	public int verifyBankCode() {
-		return bankCode;
-	}
+
 }

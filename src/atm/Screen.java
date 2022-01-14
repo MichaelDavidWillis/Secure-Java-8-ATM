@@ -17,152 +17,52 @@
 
 package atm;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import common.ReadOnlyAccount;
 
 /**
 * {@code Screen} class represents the ATM screen.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
-class Screen extends JPanel{	
-
-	static JLabel LabelOne = new JLabel();
-	static JLabel LabelTwo = new JLabel();
-	static JLabel LabelThree = new JLabel();
-	JLabel withdrawLabel = new JLabel();
-	JLabel depositLabel = new JLabel();
-	JLabel cancelLabel = new JLabel();
-	static JTextField Inputfield = new JTextField();
-
-	JLabel label20 = new JLabel("1 = £20");
-	JLabel label40 = new JLabel("3 = £40");
-	JLabel label60 = new JLabel("4 = £60");
-	JLabel label80 = new JLabel("6 = £80");
-	JLabel label100 = new JLabel("7 = £100");
-	JLabel label200 = new JLabel("9 = £200");
-	
-	static JPanel top = new JPanel();
-	static JPanel bottom = new JPanel();
-	
-	GridLayout layout = new GridLayout(0, 2);
-	
-	void createScreen() {
-		
-		setBounds(50, 20, 285, 150);
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		Inputfield.setEditable(false);
-	}
-	
-	void clearScreen() {
-		
-		LabelOne.setText("");
-		LabelOne.setVisible(false);
-		LabelTwo.setText("");
-		LabelTwo.setVisible(false);
-		
-		Inputfield.setVisible(false);
-		
-		cancelLabel.setVisible(false);
-		depositLabel.setVisible(false);
-		withdrawLabel.setVisible(false);
-		
-		label20.setVisible(false);
-		label40.setVisible(false);
-		label60.setVisible(false);
-		label80.setVisible(false);
-		label100.setVisible(false);
-		label200.setVisible(false);
-		
-		removeAll();
-		
-		top = new JPanel();
-		bottom = new JPanel();
-		top.setAlignmentY(TOP_ALIGNMENT);
-		bottom.setAlignmentY(BOTTOM_ALIGNMENT);
-		top.setVisible(true);
-		bottom.setVisible(true);
-		
-		add(top);
-		add(bottom);
-	}
+class Screen extends ScreenBase{
 	
 	void welcomeScreen() {
 		clearScreen();
-				
-		LabelOne.setText("Welcome");
-		LabelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
-		LabelOne.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		LabelOne.setVisible(true);
+		addLabel(LabelOne, "greet", 2, 18);
+		addLabel(LabelTwo, "insert", 2, 14);
 		
 		top.add(LabelOne);
-		
-		LabelTwo.setText("Please insert your Card");
-		LabelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);		
-		LabelTwo.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		LabelTwo.setVisible(true);
-		
 		bottom.add(LabelTwo);
 	}
 	
 	void loginScreen() {
 		clearScreen();
-		
-		LabelOne.setText("Please enter your PIN");
-		LabelOne.setAlignmentX(Component.CENTER_ALIGNMENT);		
-		LabelOne.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		LabelOne.setVisible(true);
-		
-		top.add(LabelOne);
-		
+		addLabel(LabelOne, "pin", 2, 18);
 		Inputfield.setPreferredSize(new Dimension(100, 20));
 		Inputfield.setVisible(true);
 		
+		top.add(LabelOne);
 		bottom.add(Inputfield);
 	}
 	
 	void userScreen(ReadOnlyAccount account) {
 		clearScreen();
-		LabelOne.setText("Welcome " + account.getName());
-		LabelTwo.setText("Total Balance : " + account.getTotalBalance());
-		LabelThree.setText("Available Balance : " + account.getAvailableBalance());
-		LabelThree.setAlignmentX(Component.CENTER_ALIGNMENT);		
-		LabelThree.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		
-		LabelOne.setVisible(true);
-		LabelTwo.setVisible(true);
-		LabelThree.setVisible(true);
-		
-		withdrawLabel.setText("1 - Withdrawal");
-		withdrawLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		withdrawLabel.setVisible(true);
-		withdrawLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		depositLabel.setText("3 - Deposit");
-		depositLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		depositLabel.setVisible(true);
-		depositLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		cancelLabel.setText("Clear - Cancel");
-		cancelLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		cancelLabel.setVisible(true);
-		cancelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addLabel(LabelOne, "greetUser", 2, 18, account.getName());
+		addLabel(LabelTwo, "total", 2, 14, account.getTotalBalance());
+		addLabel(LabelThree, "available", 2, 14, account.getAvailableBalance());
+		addLabel(withdrawLabel, "withdraw", 2, 14);
+		addLabel(depositLabel, "deposit", 2, 14);
+		addLabel(cancelLabel, "clear", 2, 14);
 		
 		top.add(LabelOne);
 		top.add(LabelTwo);
 		top.add(LabelThree);
-		
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.PAGE_AXIS));
 		bottom.add(withdrawLabel);
 		bottom.add(depositLabel);
@@ -171,13 +71,13 @@ class Screen extends JPanel{
 	
 	void withdrawalScreen() {
 		clearScreen();
-		label20.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		label40.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		label60.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		label80.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		label100.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		label200.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		
+		addLabel(label20, "20", 2, 14);
+		addLabel(label40, "40", 2, 14);
+		addLabel(label60, "60", 2, 14);
+		addLabel(label80, "80", 2, 14);
+		addLabel(label100, "100", 2, 14);
+		addLabel(label200, "200", 2, 14);
+		addLabel(LabelOne, "select", 2, 18);
 		label20.setHorizontalAlignment(JLabel.CENTER);
 		label40.setHorizontalAlignment(JLabel.CENTER);
 		label60.setHorizontalAlignment(JLabel.CENTER);
@@ -185,40 +85,25 @@ class Screen extends JPanel{
 		label100.setHorizontalAlignment(JLabel.CENTER);
 		label200.setHorizontalAlignment(JLabel.CENTER);
 
-		LabelOne.setText("Please select an amount");
-		LabelOne.setVisible(true);
 		top.add(LabelOne);
-		
-		label20.setVisible(true);
-		label40.setVisible(true);
-		label60.setVisible(true);
-		label80.setVisible(true);
-		label100.setVisible(true);
-		label200.setVisible(true);
-		
 		bottom.add(label20);
 		bottom.add(label40);
 		bottom.add(label60);
 		bottom.add(label80);
 		bottom.add(label100);
 		bottom.add(label200);
-		
 		bottom.setLayout(layout);
 	}
 	
 	void depositScreen() {
 		clearScreen();
-		
-		LabelOne.setText("Currently unavailable");
-		LabelOne.setVisible(true);
+		addLabel(LabelOne, "na", 2, 18);
 		top.add(LabelOne);
 	}
 	
 	void takeMoneyScreen() {
 		clearScreen();
-		
-		LabelTwo.setText("Please take your money promptly");
-		LabelTwo.setVisible(true);
+		addLabel(LabelTwo, "prompt", 2, 14);
 		top.add(LabelTwo);
 	}
 }

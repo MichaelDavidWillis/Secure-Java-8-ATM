@@ -15,33 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package user;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import common.PanelHelper;
 
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code WalletFrame} class represents the GUI JFrame of the Wallet object.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+class WalletFrame  extends JFrame implements PanelHelper {
+
+	static JPanel cashPanel = new JPanel();
+	static JPanel cardsPanel = new JPanel();
+	static JPanel buttonsPanel = new JPanel();
 	
-	public ATMFrame() {
-		super("ATM");
+	GridLayout layout = new GridLayout(3, 0);
+	
+	WalletFrame() {
+		super("User Wallet");
 		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
+		this.getContentPane().setBackground(new Color(100, 80, 20));
+		this.setSize(500, 300);
 		
 		this.setLayout(null);
 		this.setVisible(true);
 		
 		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

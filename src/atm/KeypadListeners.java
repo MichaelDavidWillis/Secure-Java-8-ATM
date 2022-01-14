@@ -26,11 +26,11 @@ import javax.swing.JButton;
 * {@code KeypadListeners} class holds methods for changing the 
 * {@code ActionListener}'s on {@code Keypad} buttons.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
-public final class KeypadListeners {
+final class KeypadListeners {
 
 	static void addTransactionKeypad(ATM atm, Screen screen) {
 		KeypadButtons.B1.addActionListener(new ActionListener() {
@@ -54,6 +54,7 @@ public final class KeypadListeners {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (atm.cardReader.cardIn) atm.returnCard();
+				atm.nullAccount();
 				screen.welcomeScreen();
 			}
 		});
@@ -79,6 +80,7 @@ public final class KeypadListeners {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				atm.returnCard();
+				atm.nullAccount();
 				screen.welcomeScreen();
 			}
 		});
@@ -98,6 +100,7 @@ public final class KeypadListeners {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				atm.returnCard();
+				atm.nullAccount();
 				screen.welcomeScreen();
 			}
 		});
@@ -109,6 +112,7 @@ public final class KeypadListeners {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (atm.finalizeTransaction(amount)) {
+					atm.returnCard();
 					screen.takeMoneyScreen();
 					atm.dispenser.dispenseMoney(atm, amount, screen);
 				} else {

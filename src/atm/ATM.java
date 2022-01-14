@@ -40,16 +40,16 @@ public class ATM extends ATMFrame {
 	CardReader cardReader = new CardReader();
 	private ReadOnlyAccount account;
 	private ATM atm = this;
-	//********************************************************************************
+	
 	public ATM() {
 		super();
 		screen.createScreen();		
 		screen.welcomeScreen();
 		
-		addToFrame(screen);
-		addToFrame(keypad.addKeypad());
-		addToFrame(cardReader.createCardReader());
-		addToFrame(dispenser);
+		addToFrame(this, screen);
+		addToFrame(this, keypad.addKeypad());
+		addToFrame(this, cardReader.createCardReader());
+		addToFrame(this, dispenser);
 		
 		JButton cardInsert = cardReader.getButton();
 		cardInsert.addActionListener(new ActionListener() {
@@ -62,47 +62,45 @@ public class ATM extends ATMFrame {
 			}
 		});
 	}
-	/////////////////////////////////////////////////////////////////////////////////
+	
 	private void cardEntered() {
-		if (cardReader.cardEntered(new user.CreditCard("Customer 1", 12_345_679, 12345))) {
+		if (cardReader.cardEntered(Init.wallet.getSelected())) {
 			screen.loginScreen();
 			keypad.addKeypadListeners();
 			KeypadButtons.BEnter.addActionListener(new ActionListener() {
-
-		// set actions for when PIN number is input and the "Enter" button pressed.
+				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
-					System.out.println("Authenticating User...");
+					ATMLogger.log("userCheck");
 					keypad.removeActionListenersFromAll();
 					account = Init.bankA.authenticate(atm, cardReader.card.accountNumber, 
 							Integer.parseInt(Screen.Inputfield.getText()));
 					if(account != null) {
-						System.out.println("User Authenticated...");
+						ATMLogger.log("userPass");
 						screen.userScreen(account);
 						removeActionListeners(KeypadButtons.BEnter);
 						KeypadListeners.addTransactionKeypad(atm ,screen);
 					} else {
-						System.out.println("User Not Authenticated...");
+						ATMLogger.log("userFail");
 						returnCard();
 					}
 				}
 			});
 		} else {
-			System.out.println("Card Not Authenticated...");
+			if (cardReader.cardIn == true) ATMLogger.log("cardFail");
+			else ATMLogger.log("selectCard");
 			returnCard();
 		}
 	}
 
 	void returnCard() {
-		account = null;
 		if (cardReader.cardIn) {
 			cardReader.cardReturned();
 			keypad.resetUserinput();
 			Screen.Inputfield.setText("");
 			screen.welcomeScreen();
 			keypad.removeActionListenersFromAll();
-			System.out.println("Card returned.");
+			ATMLogger.log("cardReturn");
 		}
 	}
 	
@@ -128,5 +126,11 @@ public class ATM extends ATMFrame {
 	
 	void moneyNotTaken(int amount) {
 		Init.bankA.moneyNotTaken(atm, account.getKey(), amount);
+		account = null;
+		screen.welcomeScreen();
+	}
+	
+	void nullAccount() {
+		this.account = null;
 	}
 }

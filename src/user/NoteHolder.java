@@ -15,33 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package user;
 
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import common.PanelHelper;
+import common.Note;
 
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code NoteHolder} class represents an object that can store and retrieve
+* {@code Note} objects.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
-	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
+class NoteHolder extends JPanel  {
+
+	NoteHolder(Note type, int position) {
 		
-		this.setLayout(null);
-		this.setVisible(true);
-		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+		setBounds(15, position, 450, 20);
+		setBackground(Color.black);
 	}
 }

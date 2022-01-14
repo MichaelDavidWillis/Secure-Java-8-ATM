@@ -15,33 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package common;
 
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import common.PanelHelper;
-
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code CreditCard} class represents an object to be used with a {@code ATM}
+* object.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+public class CreditCard {
+	public String name;
+	public int accountNumber;
+	private int bankCode;
+	public Color colour;
 	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
-		
-		this.setLayout(null);
-		this.setVisible(true);
-		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+	public CreditCard(String name, int accountNumber, int bankCode, Color colour) {
+		this.name = name;
+		this.accountNumber = accountNumber;
+		this.bankCode = bankCode;
+		this.colour = colour;
+	}
+	
+	public int verifyBankCode() {
+		return bankCode;
 	}
 }

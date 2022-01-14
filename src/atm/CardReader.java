@@ -22,13 +22,13 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import user.CreditCard;
+import common.CreditCard;
 
 /**
 * {@code CardReader} class represents the credit card reader of the ATM and verifies
 *  the card before any ATM actions are made.
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
@@ -53,11 +53,13 @@ class CardReader {
 	}
 	
 	boolean cardEntered(CreditCard card) {
+		if (card == null) return false;
 		cardIn = true;
-		System.out.println("Checking card...");
+		
+		ATMLogger.log("cardCheck");
 		if(card.verifyBankCode() == bankCode) {
 			this.card = card;
-			System.out.println("Card verified...");
+			ATMLogger.log("cardPass");
 			return true;
 		}
 		cardReturned();

@@ -19,16 +19,18 @@ package main;
 
 import atm.ATM;
 import bank.Bank;
+import user.Wallet;
 
 public class Init {
 
-
 	public static Bank bankA = new Bank("Bank of A", 1234);
 	public static Bank bankB = new Bank("Bank of B", 5678);
+	public static Wallet wallet;
 	
 	public static void main(String[] args) {
 
 		ATM atm = new ATM();
+		wallet = new Wallet();
 		
 	}
 

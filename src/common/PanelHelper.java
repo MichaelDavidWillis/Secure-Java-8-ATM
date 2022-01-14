@@ -15,33 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package common;
 
-import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import common.PanelHelper;
-
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code PanelHelper} interface is meant to more easily handle
+* JPanel and button objects.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+public interface PanelHelper {
+
+	default void addToFrame(JFrame frame, Component c) {
+		frame.add(c);
+		frame.setVisible(true);
+		frame.repaint();
+	}
 	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
-		
-		this.setLayout(null);
-		this.setVisible(true);
-		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+	default void removeActionListeners(JButton button) {
+		for (ActionListener al : button.getActionListeners()) {
+			button.removeActionListener(al);
+		}
 	}
 }

@@ -15,33 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package user;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import common.PanelHelper;
+import javax.swing.JPanel;
 
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code CardHolder} class represents an object that can hold {@code CardSlot}
+* objects for user interaction.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+class CardHolder extends JPanel  {
+
+	CardSlot a;
+	CardSlot b;
+	CardSlot c;
 	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
-		
-		this.setLayout(null);
+	CardHolder(int x, int y){
+		setBounds(x, y, 150, 130);
+		setBackground(Color.BLUE);
 		this.setVisible(true);
+		this.setLayout(new GridLayout(3, 0));
 		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+		this.add(a = new CardSlot(x, y));
+		this.add(b = new CardSlot(x, y + 45));
+		this.add(c = new CardSlot(x, y + 90));
+		refresh();
+	}
+	
+	void refresh() {
+		if (a.card != null) a.setBackground(a.card.colour);
+		if (b.card != null)b.setBackground(b.card.colour);
+		if (c.card != null)c.setBackground(c.card.colour);
+		repaint();
 	}
 }

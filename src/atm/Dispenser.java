@@ -29,7 +29,7 @@ import javax.swing.Timer;
 /**
 * {@code Dispenser} class represents the cash dispenser of the ATM 
 *
-* @version 0.3
+* @version 0.4
 * @author Michael David Willis
 */
 
@@ -69,11 +69,13 @@ class Dispenser extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				timeToTakeCash.stop();
-				setBackground(Color.black);
-				System.out.println("Cash taken");
-				System.out.println("£" + amount + " dispensed...");
-				cashStored -= amount;
+				atm.nullAccount();
 				removeMouseListener(this);
+				setBackground(Color.black);
+				ATMLogger.log("cashTaken");
+				ATMLogger.log("cashDispensed", String.valueOf(amount));
+				cashStored -= amount;
+				screen.welcomeScreen();
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {}

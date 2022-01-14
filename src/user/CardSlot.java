@@ -15,33 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package atm;
+package user;
 
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import common.PanelHelper;
+import common.CreditCard;
 
 /**
-* {@code ATMFrame} class represents the GUI JFrame of the ATM object. 
+* {@code CardSlot} class represents the an object that can store a single
+* {@code CreditCard} object.
 *
 * @version 0.4
 * @author Michael David Willis
 */
 
-abstract class ATMFrame extends JFrame implements PanelHelper {
+class CardSlot extends JPanel {
 	
-	public ATMFrame() {
-		super("ATM");
-		this.setResizable(false);
-		this.getContentPane().setBackground(Color.darkGray);
-		this.setSize(400, 500);
-		
-		this.setLayout(null);
-		this.setVisible(true);
-		
-		this.setIconImage(new ImageIcon("images/atm-logo.png").getImage());
+	CreditCard card = null;
+	Color colour = Color.black;
+	
+	CardSlot(int x, int y){
+		setBounds(x, y, 150, 40);
+		setBackground(colour);
 	}
 }
