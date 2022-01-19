@@ -18,6 +18,8 @@
 package atm;
 
 import java.awt.Dimension;
+
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 
@@ -34,35 +36,44 @@ class Screen extends ScreenBase{
 	
 	void welcomeScreen() {
 		clearScreen();
-		addLabel(LabelOne, "greet", 2, 18);
-		addLabel(LabelTwo, "insert", 2, 14);
-		
-		top.add(LabelOne);
-		bottom.add(LabelTwo);
+		addLabel(labelOne, "greet", 2, 18);
+		addLabel(labelTwo, "insert", 2, 14);
+		addLabel(depositLabel, "en", 1, 14);
+		addLabel(withdrawLabel, "cy", 3, 14);
+
+		top.setLayout(new BoxLayout(top, BoxLayout.PAGE_AXIS));
+		top.add(labelOne);
+		top.add(Box.createRigidArea(new Dimension(20, 20)));
+		top.add(labelTwo);
+		top.add(Box.createRigidArea(new Dimension(20, 20)));
+		bottom.setLayout(new BoxLayout(bottom, BoxLayout.LINE_AXIS));
+		bottom.add(depositLabel);
+		bottom.add(Box.createRigidArea(new Dimension(20, 20)));
+		bottom.add(withdrawLabel);
 	}
 	
 	void loginScreen() {
 		clearScreen();
-		addLabel(LabelOne, "pin", 2, 18);
+		addLabel(labelOne, "pin", 2, 18);
 		Inputfield.setPreferredSize(new Dimension(100, 20));
 		Inputfield.setVisible(true);
 		
-		top.add(LabelOne);
+		top.add(labelOne);
 		bottom.add(Inputfield);
 	}
 	
 	void userScreen(ReadOnlyAccount account) {
 		clearScreen();
-		addLabel(LabelOne, "greetUser", 2, 18, account.getName());
-		addLabel(LabelTwo, "total", 2, 14, account.getTotalBalance());
-		addLabel(LabelThree, "available", 2, 14, account.getAvailableBalance());
+		addLabel(labelOne, "greetUser", 2, 18, account.getName());
+		addLabel(labelTwo, "total", 2, 14, account.getTotalBalance());
+		addLabel(labelThree, "available", 2, 14, account.getAvailableBalance());
 		addLabel(withdrawLabel, "withdraw", 2, 14);
 		addLabel(depositLabel, "deposit", 2, 14);
 		addLabel(cancelLabel, "clear", 2, 14);
 		
-		top.add(LabelOne);
-		top.add(LabelTwo);
-		top.add(LabelThree);
+		top.add(labelOne);
+		top.add(labelTwo);
+		top.add(labelThree);
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.PAGE_AXIS));
 		bottom.add(withdrawLabel);
 		bottom.add(depositLabel);
@@ -77,7 +88,7 @@ class Screen extends ScreenBase{
 		addLabel(label80, "80", 2, 14);
 		addLabel(label100, "100", 2, 14);
 		addLabel(label200, "200", 2, 14);
-		addLabel(LabelOne, "select", 2, 18);
+		addLabel(labelOne, "select", 2, 18);
 		label20.setHorizontalAlignment(JLabel.CENTER);
 		label40.setHorizontalAlignment(JLabel.CENTER);
 		label60.setHorizontalAlignment(JLabel.CENTER);
@@ -85,7 +96,7 @@ class Screen extends ScreenBase{
 		label100.setHorizontalAlignment(JLabel.CENTER);
 		label200.setHorizontalAlignment(JLabel.CENTER);
 
-		top.add(LabelOne);
+		top.add(labelOne);
 		bottom.add(label20);
 		bottom.add(label40);
 		bottom.add(label60);
@@ -97,13 +108,13 @@ class Screen extends ScreenBase{
 	
 	void depositScreen() {
 		clearScreen();
-		addLabel(LabelOne, "na", 2, 18);
-		top.add(LabelOne);
+		addLabel(labelOne, "na", 2, 18);
+		top.add(labelOne);
 	}
 	
 	void takeMoneyScreen() {
 		clearScreen();
-		addLabel(LabelTwo, "prompt", 2, 14);
-		top.add(LabelTwo);
+		addLabel(labelTwo, "prompt", 2, 14);
+		top.add(labelTwo);
 	}
 }

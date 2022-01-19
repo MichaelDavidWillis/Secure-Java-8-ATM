@@ -1,4 +1,5 @@
 This is a work in progress and I hope to expand much of what I have done so far.
+
 This app launches 2 JFrames, one to display a simulated ATM and another to simulate
 a User's Wallet.
 Currently the Wallet only has 2 Credit Cards (Red - pin = 1111 & Blue - pin = 2222).
@@ -24,6 +25,10 @@ I later plan to :
 		further migrations to Java 11 and Java 16 to follow.
 
 ----------------------------------------------------------------------------------------------------
+
+version 0.5 -
+	- Language selection implemented, current options - English, Welsh.
+	- static JLabels in Screen class made non-static.
 
 version 0.4 - 
 	- Taken many "hard-coded" strings out of the program into .properties files, with

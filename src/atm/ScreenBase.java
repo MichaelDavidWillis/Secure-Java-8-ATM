@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
@@ -22,11 +23,12 @@ import javax.swing.JTextField;
 
 class ScreenBase extends JPanel {
 
-	ResourceBundle messages = ResourceBundle.getBundle("atm.resources.messages");
+	Locale locale = new Locale("en", "GB");
+	ResourceBundle messages = ResourceBundle.getBundle("atm.resources.messages", locale);
 	
-	static JLabel LabelOne = new JLabel();
-	static JLabel LabelTwo = new JLabel();
-	static JLabel LabelThree = new JLabel();
+	JLabel labelOne = new JLabel();
+	JLabel labelTwo = new JLabel();
+	JLabel labelThree = new JLabel();
 	JLabel withdrawLabel = new JLabel();
 	JLabel depositLabel = new JLabel();
 	JLabel cancelLabel = new JLabel();
@@ -66,6 +68,7 @@ class ScreenBase extends JPanel {
 		}
 		label.setFont(new Font("Monospaced", Font.PLAIN, size));
 		label.setVisible(true);
+		repaint();
 	}
 	
 	void addLabel(JLabel label, String text, int position, int size, String format) {
@@ -75,15 +78,20 @@ class ScreenBase extends JPanel {
 	
 	void clearScreen() {
 		
-		LabelOne.setText("");
-		LabelOne.setVisible(false);
-		LabelTwo.setText("");
-		LabelTwo.setVisible(false);
+		labelOne.setText("");
+		labelOne.setVisible(false);
+		labelTwo.setText("");
+		labelTwo.setVisible(false);
+		labelThree.setText("");
+		labelThree.setVisible(false);
 		
 		Inputfield.setVisible(false);
-		
+
+		cancelLabel.setText("");
 		cancelLabel.setVisible(false);
+		depositLabel.setText("");
 		depositLabel.setVisible(false);
+		withdrawLabel.setText("");
 		withdrawLabel.setVisible(false);
 		
 		label20.setVisible(false);

@@ -45,6 +45,8 @@ public class ATM extends ATMFrame {
 		super();
 		screen.createScreen();		
 		screen.welcomeScreen();
+		keypad.removeActionListenersFromAll();
+		KeypadListeners.addLanguageKeypad(screen);
 		
 		addToFrame(this, screen);
 		addToFrame(this, keypad.addKeypad());
@@ -65,6 +67,8 @@ public class ATM extends ATMFrame {
 	
 	private void cardEntered() {
 		if (cardReader.cardEntered(Init.wallet.getSelected())) {
+			keypad.removeActionListenersFromAll();
+			screen.clearScreen();
 			screen.loginScreen();
 			keypad.addKeypadListeners();
 			KeypadButtons.BEnter.addActionListener(new ActionListener() {
@@ -98,8 +102,10 @@ public class ATM extends ATMFrame {
 			cardReader.cardReturned();
 			keypad.resetUserinput();
 			Screen.Inputfield.setText("");
+			screen.clearScreen();
 			screen.welcomeScreen();
 			keypad.removeActionListenersFromAll();
+			KeypadListeners.addLanguageKeypad(screen);
 			ATMLogger.log("cardReturn");
 		}
 	}

@@ -19,6 +19,8 @@ package atm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 
@@ -32,6 +34,27 @@ import javax.swing.JButton;
 
 final class KeypadListeners {
 
+	static void addLanguageKeypad(Screen screen) {
+		KeypadButtons.B1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				screen.locale = new Locale("en", "GB");
+				screen.messages =  ResourceBundle.getBundle("atm.resources.messages", screen.locale);
+				screen.welcomeScreen();
+			}
+		});
+		KeypadButtons.B3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				screen.locale = new Locale("cy", "GB");
+				screen.messages =  ResourceBundle.getBundle("atm.resources.messages", screen.locale);
+				screen.welcomeScreen();
+			}
+		});
+	}
+	
 	static void addTransactionKeypad(ATM atm, Screen screen) {
 		KeypadButtons.B1.addActionListener(new ActionListener() {
 
